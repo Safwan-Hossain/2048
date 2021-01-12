@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 1 Solution}
+\author{Your Name and macid}
+\date{\today}
+
+\begin {document}
+
+\maketitle
+
+This report discusses testing of the \verb|ComplexT| and \verb|TriangleT|
+classes written for Assignment 1. It also discusses testing of the partner's
+version of the two classes. The design restrictions for the assignment
+are critiqued and then various related discussion questions are answered.
+
+\section{Assumptions and Exceptions} \label{AssumptAndExcept}
+
+
+\section{Test Cases and Rationale} \label{Testing}
+
+
+\section{Results of Testing Partner's Code}
+
+
+\section{Critique of Given Design Specification}
+
+
+\section{Answers to Questions}
+
+\begin{enumerate}[(a)]
+
+\item 
+\item ...
+
+\end{enumerate}
+
+\newpage
+
+\lstset{language=Python, basicstyle=\tiny, breaklines=true, showspaces=false,
+  showstringspaces=false, breakatwhitespace=true}
+%\lstset{language=C,linewidth=.94\textwidth,xleftmargin=1.1cm}
+
+\def\thesection{\Alph{section}}
+
+\section{Code for complex\_adt.py}
+
+\noindent \lstinputlisting{../src/complex_adt.py}
+
+\newpage
+
+\section{Code for triangle\_adt.py}
+
+\noindent \lstinputlisting{../src/triangle_adt.py}
+
+\newpage
+
+\section{Code for test\_driver.py}
+
+\noindent \lstinputlisting{../src/test_driver.py}
+
+\newpage
+
+\section{Code for Partner's complex\_adt.py}
+
+\noindent \lstinputlisting{../partner/complex_adt.py}
+
+\section{Code for Partner's triangle\_adt.py}
+
+\noindent \lstinputlisting{../partner/triangle_adt.py}
+
+\end {document}
