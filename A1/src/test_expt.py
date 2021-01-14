@@ -18,7 +18,7 @@ from triangle_adt import TriangleT, TriType
 a = ComplexT(1.0, 2.0)
 b = ComplexT(0.5, -0.5)
 c = a.add(b)
-if ((c.equals(ComplexT(1.5, 1.5)))):
+if ((c.equal(ComplexT(1.5, 1.5)))):
    print("add test passes")
 else:
    print("add test FAILS")
@@ -37,7 +37,7 @@ a.real()
 a.imag()
 a.get_r()
 a.get_phi()
-a.equals(b)
+a.equal(b)
 a.conj()
 a.add(b)
 a.sub(b)
@@ -52,11 +52,11 @@ t2 = TriangleT(4, 3, 5)
 
 t1.get_sides()
 
-# Test of equals method
-if (t1.equals(t2)):
-   print("triangle equals test passes")
+# Test of equal method
+if (t1.equal(t2)):
+   print("triangle equal test passes")
 else:
-   print("triangle equals test FAILS")
+   print("triangle equal test FAILS")
 
 t1.perim()
 t1.area()

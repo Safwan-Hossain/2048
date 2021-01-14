@@ -11,7 +11,7 @@ SRCEXPT = src/test_expt.py
 .PHONY: all test doc clean
 
 test: 
-	$(PYTEST) $(PYFLAGS) $(SRC)
+	$(PY) $(PYFLAGS) $(SRC)
 
 expt: 
 	$(PY) $(PYFLAGS) $(SRCEXPT)
