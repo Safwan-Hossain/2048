@@ -1,7 +1,3 @@
-## @file complex_adt.py
-#  @author Mohammed Hossain
-#  @brief Hossam18
-#  @date 1/21/2021
 import math
 
 
@@ -17,13 +13,13 @@ class ComplexT:
         return self.y
 
     def get_r(self):
-        return math.sqrt(self.x ^ 2 + self.y ^ 2)
+        return math.sqrt(self.x ** 2 + self.y ** 2)
 
     def get_phi(self):
         return math.atan2(self.y, self.x)
 
     def equal(self, other):
-        return (self.x == other.x and self.y == other.y)
+        return self.x == other.x and self.y == other.y
 
     def conj(self):
         return ComplexT(self.x, -self.y)
@@ -41,12 +37,12 @@ class ComplexT:
         return ComplexT(x, y)
 
     def recip(self):
-        denom = self.x ^ 2 + self.b ^ 2
+        denom = self.x ** 2 + self.b ** 2
 
         return ComplexT(self.x / denom, -self.y / denom)
 
     def div(self, other):
-        denom = self.x ^ 2 + self.b ^ 2
+        denom = self.x ** 2 + self.b ** 2
         x = (1 / denom) * (other.x * self.x + other.y * self.y)
         y = other.y * self.x - other.x * self.y
 
@@ -57,3 +53,4 @@ class ComplexT:
         y = (self.y / abs(self.y)) * math.sqrt((self.get_r() - self.x) / 2)
 
         return ComplexT(x, y)
+
