@@ -23,7 +23,7 @@ class ComplexT:
         return math.atan2(self.y, self.x)
 
     def equal(self, other):
-        return (self.x == other.x && self.y == other.y)
+        return (self.x == other.x and self.y == other.y)
 
     def conj(self):
         return ComplexT(self.x, -self.y)
