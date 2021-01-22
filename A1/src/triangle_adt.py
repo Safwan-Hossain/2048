@@ -1,7 +1,7 @@
 ## @file triangle_adt.py
-#  @author 
-#  @brief 
-#  @date 
+#  @author Safwan Hossain
+#  @brief Hossam18
+#  @date 1/21/2021
 
 import math
 from enum import Enum

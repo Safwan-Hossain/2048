@@ -1,3 +1,8 @@
+## @file complex_adt.py
+#  @author Safwan Hossain
+#  @brief Hossam18
+#  @date 1/21/2021
+
 import math
 
 
@@ -37,12 +42,12 @@ class ComplexT:
         return ComplexT(x, y)
 
     def recip(self):
-        denom = self.x ** 2 + self.b ** 2
+        denom = self.x ** 2 + self.y ** 2
 
         return ComplexT(self.x / denom, -self.y / denom)
 
     def div(self, other):
-        denom = self.x ** 2 + self.b ** 2
+        denom = self.x ** 2 + self.y ** 2
         x = (1 / denom) * (other.x * self.x + other.y * self.y)
         y = other.y * self.x - other.x * self.y
 
@@ -53,4 +58,5 @@ class ComplexT:
         y = (self.y / abs(self.y)) * math.sqrt((self.get_r() - self.x) / 2)
 
         return ComplexT(x, y)
+
 
