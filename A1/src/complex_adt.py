@@ -37,7 +37,7 @@ class ComplexT:
 
     def mult(self, other):
         x = self.x * other.x - self.y * other.y
-        y = self.y * other.x - self.x * other.y
+        y = self.x * other.y + self.y * other.x
 
         return ComplexT(x, y)
 
