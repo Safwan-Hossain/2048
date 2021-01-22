@@ -1,6 +1,6 @@
 ## @file triangle_adt.py
 #  @author Safwan Hossain
-#  @brief Hossam18
+#  @brief ADT for triangles
 #  @date 1/21/2021
 
 import math
