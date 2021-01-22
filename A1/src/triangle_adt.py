@@ -6,7 +6,6 @@
 import math
 from enum import Enum
 
-
 ## @brief An enumerated data type for representing types of triangles
 #  @details A triangle can be an equilateral, isosceles, scalene or right triangle
 class TriType(Enum):
@@ -48,6 +47,7 @@ class TriangleT:
         return self.a + self.b + self.c
 
     ## @brief Calculates the area of the current triangle
+    #  @details Assume the current triangle is valid
     #  @return Float representing the area of the current triangle
     def area(self):
         p = self.perim() / 2
@@ -63,6 +63,7 @@ class TriangleT:
         return a + b > c and a + c > b and b + c > a
 
     ## @brief Determines the type of the current triangle
+    #  @details Assume the current triangle is valid
     #  @return TriType that represents the type of the current triangle
     def tri_type(self):
         a = self.a

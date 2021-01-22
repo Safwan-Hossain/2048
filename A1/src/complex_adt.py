@@ -30,11 +30,13 @@ class ComplexT:
         return self.y
 
     ## @brief Gets the magnitude of the complex number
+    #  @details Assume the imaginary part of the complex number isn't zero
     #  @return Float representing magnitude of the complex number
     def get_r(self):
         return math.sqrt(self.x ** 2 + self.y ** 2)
 
-    ## @brief Gets the phase of the complex number
+    ## @brief Gets the phase of the complex number in radians
+    #  @details Assume the imaginary part of the complex number isn't zero
     #  @return Float representing the phase of the complex number in radians
     def get_phi(self):
         return math.atan2(self.y, self.x)
@@ -48,6 +50,7 @@ class ComplexT:
         return self.x == other.x and self.y == other.y
 
     ## @brief Gets the conjugate of the complex number
+    #  @details Assume the imaginary part of the complex number isn't zero
     #  @return ComplexT object that is the conjugate of the current complex number
     def conj(self):
         return ComplexT(self.x, -self.y)
@@ -79,6 +82,7 @@ class ComplexT:
         return ComplexT(x, y)
 
     ## @brief Returns the reciprocal of the current complex number
+    #  @details Assume the imaginary part of the complex number isn't zero
     #  @return ComplexT object that is the reciprocal of the current complex number
     def recip(self):
         denom = self.x ** 2 + self.y ** 2
@@ -86,6 +90,7 @@ class ComplexT:
         return ComplexT(self.x / denom, -self.y / denom)
 
     ## @brief Returns a complex number that is the quotient of two complex numbers
+    #  @details Assume the imaginary parts of the complex numbers aren't zero
     #  @param other A complex number
     #  @return ComplexT object that is the quotient of the current complex number and a
     #          given complex number
@@ -97,6 +102,7 @@ class ComplexT:
         return ComplexT(x, y)
 
     ## @brief Returns the square root of the current complex number
+    #  @details Assume the imaginary part of the complex number isn't zero
     #  @return ComplexT object that is the square root of the current complex number
     def sqrt(self):
         x = math.sqrt((self.get_r() + self.x) / 2)
