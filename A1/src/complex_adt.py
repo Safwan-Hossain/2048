@@ -48,8 +48,8 @@ class ComplexT:
 
     def div(self, other):
         denom = self.x ** 2 + self.y ** 2
-        x = (1 / denom) * (other.x * self.x + other.y * self.y)
-        y = other.y * self.x - other.x * self.y
+        x = (self.x * other.x + self.y * other.y) / denom
+        y = (self.y * other.x - self.x * other.y) / denom
 
         return ComplexT(x, y)
 
