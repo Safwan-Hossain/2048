@@ -1,6 +1,6 @@
 ## @file complex_adt.py
 #  @author Safwan Hossain
-#  @brief Hossam18
+#  @brief ADT for complex number
 #  @date 1/21/2021
 
 import math
