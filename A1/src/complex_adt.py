@@ -47,7 +47,10 @@ class ComplexT:
     #  @return True if given complex number is equal to current complex number,
     #          False otherwise
     def equal(self, other):
-        return self.x == other.x and self.y == other.y
+        maxTol = 10e-9
+        xSame = abs(self.x - other.x) <= maxTol
+        ySame = abs(self.y - other.y) <= maxTol
+        return xSame and ySame
 
     ## @brief Gets the conjugate of the complex number
     #  @details Assume the imaginary part of the complex number isn't zero
