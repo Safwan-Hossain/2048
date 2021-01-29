@@ -17,8 +17,8 @@
 \newcounter{stepnum}
 
 \title{Assignment 1 Solution}
-\author{Your Name and macid}
-\date{\today}
+\author{By Safwan Hossain, hossam18}
+\date{January 28, 2021}
 
 \begin {document}
 
@@ -31,22 +31,33 @@ are critiqued and then various related discussion questions are answered.
 
 \section{Assumptions and Exceptions} \label{AssumptAndExcept}
 
+\textbf{Assumption: Assume the imaginary part of complex number isn’t zero.} Some methods require the complex number to be valid due to complications such as zero division. \\ \\
+\textbf{Assumption: Assume the current triangle is valid.} Methods such as tri\_type() and area() required this assumption because if the triangle was invalid, the area and triangle type would be undefined.
 
 \section{Test Cases and Rationale} \label{Testing}
 
+For simple methods such as finding the magnitude of complex numbers, it was enough to use random complex numbers due to straightforward calculations. But for methods with special cases like equivalence for triangles, the test case would have to account for the fact that it works with a triangle with the same side lengths even if the lengths are assigned to different variables. 
 
 \section{Results of Testing Partner's Code}
 
+My partner and I passed every test case. Note that I added float point inaccuracy for ComplexT equal() later on.
 
 \section{Critique of Given Design Specification}
-
+I liked how the design was very simple and straightforward to implement by using general formulas to calculate values for most methods. But I feel like some details were missing such as is a complex number still valid if the imaginary part is 0. One thing I would change is how the triangle types are implemented; scalene, isosceles, and equilateral are all types of triangles based on side length, while a right triangle is based on a triangle’s angle. Instead it would be better to either just keep the triangle type in terms of side length or introduce the remaining triangle types (acute and obtuse) and return an array of triangle types in following format: [Type based on sides, Type based on angles].
 
 \section{Answers to Questions}
 
 \begin{enumerate}[(a)]
 
-\item 
-\item ...
+\item The methods ComplexT, real(), imag(), get\_r(), get\_phi() are selectors. The methods TriangleT get\_sides(), perim(), area(), tri\_type() are selectors. ComplexT doesn't have any mutators because there are no methods that change the parameters of ComplexT, all methods either get or manipulate values without affecting the current object's values. The same applies for TriangleT.
+\item Assuming the classes have dynamic methods, ComplexT can a have a state variable called isComplex (boolean) where it keeps track of the imaginary part to see if it exists, if the imaginary part is zero the variable is false and the object is just a real number which arguably doesn't make it complex. ComplexT can have a state variable called isZero (boolean) where if both parts of the complex number is zero, the variables would be true. TriangleT can have a state variable for keeping track of the type of triangle it is and another state variable (boolean) to keep track if the current triangle is valid (true if valid, false if not valid).
+\item It would not make sense for ComplexT to have greater/less than methods because imaginary numbers cannot be compared in those terms. Imaginary numbers are not comparable because an imaginary number is neither equal, greater nor less than 0, thus it cannot be compared with other imaginary numbers. It is possible to compare other values such as magnitudes, but not the complex numbers themselves.
+\item It is possible for the constructor for TriangleT to form a geometrically non valid triangle. In this case, There are two possible options, which is to let the triangle be constructed or to print out an error message and ask to try again. The problem with the latter solution is that Python will throw an error and stop the program if the triangle is ever called, so the solution would be situational. If it is used in an interface with a user for example, then the console can print out an error message and say the triangle is not valid and as the user to try again. If however, the constructor is called using premade code (another module) then the triangle should be created (with a warning message), but for methods where geometric validity is required the is\_valid() method should be used to check if the triangle is valid. For example If the area() method is called for a non-valid triangle, there should be a message or an impossible value such as -1 being passed so that the given area isn’t assumed to be correct.
+\item It is not a practical idea for this assignment to have a state variable for the type of triangle because TriangleT is a static implantation and the triangle type is set upon construction. If the triangle were to be constantly changing and multiple methods are asking for the triangle type, then it would be a good idea for it to have a state variable for its type.
+\item An increase in performance creates a positive impact on usability. This is because the usability of a program will require a certain speed for a program to function. If a program is too slow it will negatively impact usability.
+\item A “fake” rational design process is very useful when dealing with complex projects, but if a project is very simple and straightforward, it may not be necessary to “fake” a rational design (although it may be practical). 
+\item Reusability can affect reliability in a negative way because it can promote mistakes. Reusable designs can be very general, it is possible for the design to not pay attention too much on every application it is used in. Thus, if a specific application requires you to follow specific safety features or instructions it may not be accounted for in a general design.
+\item Programming languages are an abstraction on hardware because they provide you many ways to use and manipulate the hardware while making it easier to write programs without having to worry about how the hardware is used. The programming language will handle many unnecessary tasks with the hardware for you.
 
 \end{enumerate}
 
