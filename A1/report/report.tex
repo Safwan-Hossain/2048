@@ -43,7 +43,7 @@ For simple methods such as finding the magnitude of complex numbers, it was enou
 My partner and I passed every test case. Note that I added float point inaccuracy for ComplexT equal() later on.
 
 \section{Critique of Given Design Specification}
-I liked how the design was very simple and straightforward to implement by using general formulas to calculate values for most methods. But I feel like some details were missing such as is a complex number still valid if the imaginary part is 0. One thing I would change is how the triangle types are implemented; scalene, isosceles, and equilateral are all types of triangles based on side length, while a right triangle is based on a triangle’s angle. Instead it would be better to either just keep the triangle type in terms of side length or introduce the remaining triangle types (acute and obtuse) and return an array of triangle types in following format: [Type based on sides, Type based on angles].
+I liked how the design was very simple and straightforward to implement as it only required the use of general formulas to calculate values for most methods. However, I feel like some details were missing such as whether a complex number is still valid if the imaginary part is 0. Something I would change is how the triangle types are implemented; scalene, isosceles, and equilateral are all types of triangles based on side length, while a right triangle is based on a triangle's angle. Instead, it would be better to either keep the triangle type in terms of side length or introduce the remaining triangle types (acute and obtuse) and return an array of triangle types in following format: [Type based on sides, Type based on angles].
 
 \section{Answers to Questions}
 
