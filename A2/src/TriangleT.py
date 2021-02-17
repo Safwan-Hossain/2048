@@ -40,3 +40,10 @@ class TriangleT(Shape):
     # @return Float representing the mass of the triangle
     def mass(self):
         return self.m
+
+    ## @brief gets the inertia of the triangle
+    # @details calculates the moment of inertia of the triangle using the formula
+    # that can be found in https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/-/blob/master/Assignments/A2/A2.pdf
+    # @return Float representing the moment of inertia of the triangle
+    def m_inert(self):
+        return (self.m * (self.s ** 2)) / 12
