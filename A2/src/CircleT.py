@@ -14,10 +14,20 @@ class CircleT(Shape):
     #  @throws ValueError when either mass or radius is 0 or lower
 
     def __init__(self, x, y, r, m):
-        if r <= 0 and m <= 0:
+        if r <= 0 or m <= 0:
             raise ValueError("mass and radius should be greater than zero")
 
         self.x = x
         self.y = y
         self.r = r
         self.m = m
+
+    ## @brief gets the x coordinate of the circle
+    # @return Float representing the x coordinate of the circle
+    def cm_x(self):
+        return self.x
+
+    ## @brief gets the y coordinate of the circle
+    # @return Float representing the y coordinate of the circle
+    def cm_y(self):
+        return self.y
