@@ -25,3 +25,18 @@ class TriangleT(Shape):
         self.y = y
         self.s = s
         self.m = m
+
+    ## @brief gets the x coordinate of the triangle
+    # @return Float representing the x coordinate of the triangle
+    def cm_x(self):
+        return self.x
+
+    ## @brief gets the y coordinate of the triangle
+    # @return Float representing the y coordinate of the triangle
+    def cm_y(self):
+        return self.y
+
+    ## @brief gets the mass of the triangle
+    # @return Float representing the mass of the triangle
+    def mass(self):
+        return self.m
