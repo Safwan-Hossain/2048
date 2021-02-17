@@ -1,6 +1,6 @@
-## @file TriangleT.py
+## @file BodyT.py
 #  @author Safwan Hossain
-#  @brief ADT for representing equilateral triangles
+#  @brief ADT for handling multiple shapes
 #  @date 2/16/2021
 
 from Shape import Shape
