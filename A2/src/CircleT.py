@@ -30,4 +30,9 @@ class CircleT(Shape):
     ## @brief gets the y coordinate of the circle
     # @return Float representing the y coordinate of the circle
     def cm_y(self):
-        return self.y
+        return self.y    
+
+    ## @brief gets the mass of the circle
+    # @return Float representing the mass of the circle
+    def mass(self):
+        return self.m
