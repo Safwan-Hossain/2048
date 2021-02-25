@@ -44,7 +44,7 @@ def mnom(x, y, m):
 def cm(z, m):
     top = 0
     for i in range(len(m)):
-        top += z[i] + m[i]
+        top += z[i] * m[i]
     return top / sum(m)
 
 
@@ -185,6 +185,9 @@ def body_cm_x_test():
     body3 = BodyT(x3, y3, m3)
 
     try:
+        print(body1.cm_x())
+        print('expected')
+        print(cm(x1, m1))
         assert compareFloats(body1.cm_x(), cm(x1, m1))
         assert compareFloats(body2.cm_x(), cm(x2, m2))
         assert compareFloats(body3.cm_x(), cm(x3, m3))
@@ -324,10 +327,21 @@ def cm_test():
     list3 = [1, 2]
     list4 = [12222, 304955]
 
+    total = 0
+    for i in range(len(list1)):
+        total += list1[i] * list2[i]
+    cm1 = total / sum(list2)
+    cm2 = total / sum(list1)
+
+    total = 0
+    for i in range(len(list4)):
+        total += list3[i] * list4[i]
+    cm3 = total / sum(list4)
+
     try:
-        assert compareFloats(cm(list1, list2), (sum(list1) + sum(list2)) / sum(list2))
-        assert compareFloats(cm(list2, list1), (sum(list1) + sum(list2)) / sum(list1))
-        assert compareFloats(cm(list3, list4), (sum(list4) + sum(list3)) / sum(list4))
+        assert compareFloats(cm(list1, list2), cm1)
+        assert compareFloats(cm(list2, list1), cm2)
+        assert compareFloats(cm(list3, list4), cm3)
         counter += 1
         print("cm() test passed")
     except:

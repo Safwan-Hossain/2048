@@ -41,7 +41,7 @@ def mnom(x, y, m):
 def cm(z, m):
     top = 0
     for i in range(len(m)):
-        top += z[i] + m[i]
+        top += z[i] * m[i]
     return top / sum(m)
 
 ## @brief An ADT for handling a collective of multiple shapes that inherits Shape.py
