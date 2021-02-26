@@ -32,51 +32,57 @@ are then critiqued and the requested discussion questions are answered.
 
 \section{Testing of the Original Program}
 	
-	I passed 11/15 method cases, which is 24/38 total test cases passed. In my previous test module it said that I passed every case, but there was a small bug in my \textbf{cm()} method where the method was adding instead of multiplying in the inner loop, resulting in a test failure for the methods \textbf{cm()}, \textbf{cm\_x()}, \textbf{cm\_y()} and \textbf{m\_inert()} inside the class BodyT. The test rationale was to test a normal case by using random value, a boundary case (where possible) by using a number really close to the least or greatest allowed number, and an exception test by trying to test the exception directly if there is an exception. Note that my \textbf{Plot.py} did not properly push, but both \textbf{Plot.py} and \textbf{test\_All.py} are now updated.
+	I passed 11/15 method cases, which is 24/38 total test cases passed. In my previous test module, it said that I passed every case, but there was a small bug in my \textbf{cm()} method where the method was adding instead of multiplying in the inner loop, resulting in a test failure for the methods \textbf{cm()}, \textbf{cm\_x()}, \textbf{cm\_y()} and \textbf{m\_inert()} inside the class BodyT. The test rationale was to test a normal case by using random value, a boundary case (where possible) by using a number close to the least or greatest accepted number, and an exception test by trying to test the exception directly if there is an exception. Note that my \textbf{Plot.py} did not properly push, but both \textbf{Plot.py} and \textbf{test\_All.py} are now updated.
 
 \section{Results of Testing Partner's Code}
 	
-	My partner passed all tests in this assignment as well as the previous assignment. As mentioned in the previous section my \textbf{cm()} method was taking the sum of the sum of each element in list 1 and list 2, when it should’ve been taking the sum of the multiplication of each element of the same index between list 1 and list 2.
+	My partner passed all tests in this assignment as well as the previous project. As mentioned in the previous section my \textbf{cm()} method took the sum of the sum of each element in list 1 and list 2, when it should’ve been taking the sum of the multiplication of each element of the same index between list 1 and list 2.
 
 \section{Critique of Given Design Specification}
 	
-	The program is consistent with its design, as all naming conventions and ordering of variables are consistent. For example, \textbf{x} and \textbf{y} were used as the names for the variables that represent coordinates of a shape and they were always called first in the respective order (\textbf{x} first, then \textbf{y}, then other variables). The design had excellent essentiality. Only necessary methods were created and there were no methods that could’ve been replaced/used better by an existing method. The design was minimal because all methods focused on a single task and no method did multiple different tasks. The design was also made to be general. \textbf{CircleT} and \textbf{TriangleT} allows for any regular circle or equilateral triangle to be created, while \textbf{BodyT} allows for any irregular shape to be created, which means that \textbf{Scene.py} can be given practically any 2D shape with existing mass and dimensions. The design also leaves room for other shape modules to be added since every module calculates and keeps track of its own properties. The design has high cohesion as all modules within each class relate to one another since they all keep track of their class object’s properties. The design also has low coupling because no modules strongly depend on another module. For example, \textbf{TriangleT}, \textbf{CircleT}, and \textbf{BodyT} only rely on \textbf{Shape.py} for structure and are completely independent otherwise. The interface does not allow the user to check for exceptions because the exceptions in the design must be checked from outside the design. All exceptions are inside constructor methods, which means that if the exception is raised the constructor does not create an object, so the constructor’s class cannot have a method to check if the object does not exist. Although there are no checks for the exceptions, there are errors raised in the console to let the user know that their numbers are invalid. 
+	The program is consistent with its design, as all naming conventions and ordering of variables are consistent. For example, \textbf{x} and \textbf{y} were used as the names for the variables that represent coordinates of a shape and they were always called first in the respective order (\textbf{x} first, then \textbf{y}, then other variables). The design had excellent essentiality. Only necessary methods were created, and there were no methods that could’ve been replaced/used better by an existing method. The design was minimal because all methods focused on a single task, and no method did multiple different tasks. The design was also made to be general. \textbf{CircleT} and \textbf{TriangleT} allow for any regular circle or equilateral triangle to be created, and \textbf{BodyT} allows for any irregular shape to be created, which means that \textbf{Scene.py} can be given practically any 2D shape with existing mass and dimensions. The design also leaves room for other shape modules to be added since every module calculates and keeps track of its own properties. The design has high cohesion as all modules within each class relate to one another since they all keep track of their class object’s properties. The design also has low coupling because no modules strongly depend on another module. For example, \textbf{TriangleT}, \textbf{CircleT}, and \textbf{BodyT} only rely on \textbf{Shape.py} for structure and are entirely  independent otherwise. The interface does not allow the user to check for exceptions because the exceptions in the design must be checked from outside the design. All exceptions are inside constructor methods, which means that if the exception is raised, the constructor does not create an object, so the constructor’s class cannot have a method to check if the object does not exist. Although there are no checks for the exceptions, there are errors raised in the console to let the user know that their numbers are invalid. 
 
 \section{Answers}
 
 \begin{enumerate}[a)]
 
 \item 
-	I don’t think that testing getters and setter is necessary for small projects. In small projects the implementation would typically be simple and straightforward. If, however the getter or setter have code that does more (e.g. modifying values before setting) than just getting/setting, then they should be unit tested to make sure that the entire code works. Also, when dealing with larger projects, I think that spending a few more minutes to test the getters and setters could potentially save a lot of time because, other methods can return an error if the getter/setter is implemented incorrectly and it may take a while to trace the problem back to the getter and setter.
+	I don’t think that testing getters and setters is necessary for small projects. In small projects, the implementation would typically be simple and straightforward. If the getter or setter has code that does more (e.g. modifying values before setting) than just getting/setting, they should be unit tested to make sure that the entire code works. Also, when dealing with larger projects, I think that spending a few more minutes to test the getters and setters could potentially save a lot of time because other methods can return an error if the getter/setter is implemented incorrectly, and it may take a while to trace the problem back to the getter and setter.
 
 \item
 	The getter method is used to access private properties of a class from outside the class, so a getter for fx and fy can simply return the function like a variable. The functions can be called by the following snippet of code: get\_fx()() or get\_fy()(). The setter methods can be implemented the traditional way, by overwriting the current function with the given function. For example: self.fx = fx.
 
 \item
+	Testing Plot.py would be a difficult task because we are trying to make the program check if a graph is right. The only way to test Plot.py would be by checking if a file exists in the specified save location. Checking if the graph is correct would require the plot values which is difficult for a program to read off a graph image.
+
+\item
+	close\_enough($x_{calc}, x_{true}$): \\ \\
+	\hspace*{0.5cm} $\bullet$ output: $out := \frac{|| x_{calc} - x_{true} ||} {|| x_{true} ||} < \epsilon $ \\ \\
+	\hspace*{0.5cm} $\bullet$ exception: none
+
+
 	
+\item
+	The specification has exceptions for non-positive values of shape dimensions and mass because neither negative mass nor negative dimensions (height, width, length) exist. Also, objects with zero mass or zero-dimension values are not considered to exist either; if we were to consider shapes with zero mass or dimensional values, then they would have no forces acting on them, making them irrelevant to this interface. Coordinates are relative to a certain point, which means they can be negative because the sign of a coordinate can tell us the direction of a point relative to the coordinate system. 
 
 \item
-	
-
-\item
-	The specification has exceptions for non-positive values of shape dimensions and mass because neither negative mass nor negative dimensions (height, width, length) exist. Also objects with zero mass or zero-dimension values are not considered to exist either; if we were to consider objects with zero mass or dimensional values then it would have no forces acting on it. Coordinates however are relative to a certain point, which means they can be negative because the sign of a coordinate can tell us the direction of a point relative to the coordinate system. 
-
-\item
-	The specification ($\neg(s_s > 0 \wedge m_s > 0) \implies$ ValueError) states that if the state invariant is not true, return an error. Let $a = s > 0 \wedge m > 0$, the specification would be $(\neg(a) \implies$ ValueError), which means if $a$ is false, return an error, otherwise do nothing. The variable $a$ can only be false if the state invariant is not satisfied, thus when a triangle is constructed the invariant will always be satisfied.
-
+	The specification ($\neg(s_s > 0 \wedge m_s > 0) \implies$ ValueError) states that if the state invariant is not true, return an error. Let $a = s > 0 \wedge m > 0$, the specification would be $(\neg(a) \implies$ ValueError), which means if $a$ is false, return an error, otherwise do nothing. The variable $a$ can only be false if the state invariant is not satisfied; thus, when a triangle is constructed, the invariant will always be satisfied.
 \item	
-roots = [math.sqrt(i) for i in range(5, 20, 2)]
+	roots = [math.sqrt(i) for i in range(5, 20, 2)]
 
 \item
-def remove\_upper(string): \\
-\hspace*{0.5cm} string2 = "" \\
-\hspace*{0.5cm} for i in string: \\
-\hspace*{1cm} if not i.isupper(): \\
-\hspace*{1.5cm} string2 += str(i) \\
-\hspace*{0.5cm} return string2 
+	def remove\_upper(string): \\
+	\hspace*{0.5cm} string2 = "" \\
+	\hspace*{0.5cm} for i in string: \\
+	\hspace*{1cm} if not i.isupper(): \\
+	\hspace*{1.5cm} string2 += str(i) \\
+	\hspace*{0.5cm} return string2 
 
 \item
-Abstraction is the process of focusing on what is important while ignoring what is irrelevant, while generality is solving a more general problem then the one at hand; generality involves reusing a concept for many problems. These two principals are related because you can become more general by using abstraction, as abstraction will only deal with the more important concepts and dismiss less important concepts which makes a concept easier to reuse. 
+	Abstraction is the process of focusing on what is important while ignoring what is irrelevant. Generality is the process of solving a more general problem than the one at hand; generalization involves reusing a concept for many problems. These two principles are related because you can become more general by using abstraction. Abstraction will only deal with the more important concepts and dismiss less important concepts; this makes an idea easier to reuse. 
+
+\item
+	Generally, it is better for one module to be used by many other modules than many other modules using one module because that way, only one module would need to be maintained. If one module (let’s call it module \textbf{a}) depends on many others, then when we make a change to module \textbf{a}, we would need to change all the other modules within module \textbf{a}.
 
 \end{enumerate}
 
