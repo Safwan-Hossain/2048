@@ -27,8 +27,15 @@ class SetOfInt:
         return SetOfInt(self.to_seq() + t.to_seq())
 
     def diff(self, t):
-        intersec = self.s.intersection(self.complement(t))
-        return SetOfInt(self.set_to_seq(intersec))
+	    diff = []
+	    ts = t.to_seq()
+	    ss = self.to_seq()
+
+	    for x in ss:
+	        if not x in ts:
+	            diff.append(x)
+	    return diff
+
 
     def size(self):
         return len(self.s)
@@ -38,6 +45,6 @@ class SetOfInt:
 
     def equals(self, t):
         for x in t.to_seq():
-            if self.is_member(x):
-                return True
-        return False
+            if not self.is_member(x):
+                return False
+        return True
