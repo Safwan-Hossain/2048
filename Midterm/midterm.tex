@@ -472,9 +472,13 @@ and minimality.  Please be specific in your answer.
 
 \begin{itemize}
 \item \textbf{consistency}:
+  The design is consistent with its naming conventions and ordering of variables although it should be noted that the design does not frequently use multiple variables as parameters; naming is consistent as every word is separated by an underscore.
 \item \textbf{essentiality}:
+  The design has good essentiality although the method  to\_seq() is arguably not essential. The method to\_seq() does almost the exact same thing as set\_to\_seq() and is not required when the function set\_to\_seq() is implemented, but if the developer does not implement this method (as set\_to\_seq()) then the design is essential. The design is essential because it contains only necessary methods and no methods can be used in place of another. I also think the function new\_max\_ val(s, f) can be changed into returning a list without having the max\_val() being called inside. This improves the essentiality because max\_val() and new\_max\_val() almost does the same thing except the latter function applies a secondary function to the sequence parameter. 
 \item \textbf{generality}:
+  The design for module SetOfInt has excellent generality because it can be used for any set of integers. The module can become even more general by changing a few line of codes to allow more data types, e.g. object membership. The module SequenceServicesLibrary  however, has poor generality, some functions are general for example max\_val() will return the maximum absolute value of any list, but it only accounts for integers. The spices() function is not very general because the number comparison (x is greater than zero) is specific and it outputs specific values such as “nutmeg” and “ginger” which cannot be widely used in other implementations.
 \item \textbf{minimality}:
+  The design has excellent minimality as every function only focuses on one task and no function changes a state and outputs a value. The new\_max\_val() method is questionable for minimality as it concatenates two sequences then finds the max value, which may not be minimal. 
 \end{itemize}
 
 \end{minipage}

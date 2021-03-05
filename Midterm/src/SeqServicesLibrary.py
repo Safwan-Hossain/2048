@@ -39,5 +39,5 @@ def new_max_val(s, f):
     if len(s) == 0:
         raise ValueError("List is empty")
 
-    return max_val([f(x) for x in s])
+    return max_val([x if f(x) else False for x in s])
 

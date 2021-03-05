@@ -11,9 +11,6 @@ class SetOfInt:
     def set_to_seq(self, s):
         return [x for x in s]
 
-    def complement(self, A):
-        return {x for x in A}
-
     def is_member(self, x):
         for a in self.s:
             if a == x:
