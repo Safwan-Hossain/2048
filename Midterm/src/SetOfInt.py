@@ -29,7 +29,7 @@ class SetOfInt:
 	    ss = self.to_seq()
 
 	    for x in ss:
-	        if not x in ts:
+	        if x not in ts:
 	            diff.append(x)
 	    return diff
 
