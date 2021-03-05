@@ -472,13 +472,13 @@ and minimality.  Please be specific in your answer.
 
 \begin{itemize}
 \item \textbf{consistency}:
-  The design is consistent with its naming conventions and ordering of variables although it should be noted that the design does not frequently use multiple variables as parameters; naming is consistent as every word is separated by an underscore.
+  The design is consistent with its naming conventions for example, every word in a name is separated by an underscore. The ordering of variable is also consistent although it should be noted that the design does not frequently use multiple variables as parameters. 
 \item \textbf{essentiality}:
-  The design has good essentiality although the method  to\_seq() is arguably not essential. The method to\_seq() does almost the exact same thing as set\_to\_seq() and is not required when the function set\_to\_seq() is implemented, but if the developer does not implement this method (as set\_to\_seq()) then the design is essential. The design is essential because it contains only necessary methods and no methods can be used in place of another. I also think the function new\_max\_ val(s, f) can be changed into returning a list without having the max\_val() being called inside. This improves the essentiality because max\_val() and new\_max\_val() almost does the same thing except the latter function applies a secondary function to the sequence parameter. 
+  The design has good essentiality although the method  to\_seq() is arguably not essential. The method to\_seq() does almost the exact same thing as set\_to\_seq() and is not required when the function set\_to\_seq() is implemented. But if the developer does not implement set\_to\_seq() then the design is essential, because it contains only necessary methods and no methods can be used in place of another. I also think the function new\_max\_ val(s, f) is not very essential because it does almost the same thing as max\_val (they both find a max value). I think the design can be more essential by changing  new\_max\_val() to output the sequence that is passed into max\_value() instead. This improves the essentiality because max\_val() and new\_max\_val() currently almost does the same thing and one can be used in place of the other, but after this change the two functions will have two different uses. 
 \item \textbf{generality}:
-  The design for module SetOfInt has excellent generality because it can be used for any set of integers. The module can become even more general by changing a few line of codes to allow more data types, e.g. object membership. The module SequenceServicesLibrary  however, has poor generality, some functions are general for example max\_val() will return the maximum absolute value of any list, but it only accounts for integers. The spices() function is not very general because the number comparison (x is greater than zero) is specific and it outputs specific values such as “nutmeg” and “ginger” which cannot be widely used in other implementations.
+  The design for module SetOfInt is somewhat general because it can be used for any set of integers, but it does not account for other data types. The module can become even more general by changing a few line of codes to allow more data types and objects. The module SequenceServicesLibrary  however, has poor generality, some functions are general for example max\_val() will return the maximum absolute value of any list, although it only accounts for integers. An example for poor generality is the spices() function, it is not very general because the function has a specific comparison (x is greater than zero) is specific and it outputs a list containing specific values such as “nutmeg” and “ginger”. This function cannot be widely used in other implementations and is not considered general.
 \item \textbf{minimality}:
-  The design has excellent minimality as every function only focuses on one task and no function changes a state and outputs a value. The new\_max\_val() method is questionable for minimality as it concatenates two sequences then finds the max value, which may not be minimal. 
+  The design has excellent minimality as every function only focuses on one task and no function changes a state and outputs a value. The new\_max\_val() method is questionable for minimality as it modifies a sequence then finds the max value, which may not be minimal. 
 \end{itemize}
 
 \end{minipage}
@@ -510,9 +510,13 @@ characterize the changes; you don't actually have to make them.)
 
 \begin{enumerate}[a.]
 \item
+  To make it more generic the module can account for more data types (and maybe even reference types) that are not just integers. For example, the design can include all data types such as strings, floats, objects (reference type), etc.
 \item
+  The main issue in making the implementation generic is the comparison between two members in a set as comparison is used in several methods of the design (diff(), equals(), is\_member()). For data types, python makes it simple because most data types can be compared using “==”, but when comparing something more complicated such as objects, the design would need a method for comparing the values of the objects. The design can compare every value of the two objects that are being compared, if the values are the same then they are the same object, otherwise they are two different objects. 
 \item
+  The relation operator “=” can be used, but as stated previously, when comparing objects the relation operator would be applied to the values of the objects (data type values) rather than the object themselves. This is because using “=” on objects would compare their memory addresses instead. 
 \item (BONUS)
+  a = b
 \end{enumerate}
 
 \end{minipage}
