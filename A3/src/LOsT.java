@@ -1,8 +1,8 @@
 /**
- * @File: LOsT.java
- * @Author: Safwan Hossain, Hossam18, 400252391
- * @Date: March.29th, 2021
- * @Description: 
+ * Author: Safwan Hossain, hossam18, 400252391
+ * Revised: 3/29/2021
+ * 
+ * Description: Class for handling Learning Outcomes
  */
 
 package src;

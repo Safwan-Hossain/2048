@@ -1,13 +1,14 @@
+/**
+ * Author: Safwan Hossain, hossam18, 400252391
+ * Revised: 3/29/2021
+ * 
+ * Description: Class that handles a course using IndicatorTs and 
+ LOsTs
+ */
 package src;
 import java.util.HashMap;
 import java.util.HashSet;
 
-/**
- * Author: Safwan Hossain, Hossam18, 400252391
- * @brief This type instantiates the generic 2D sequence type with
- * integers for a discrete elevation model
- * @details The point is represented in the order (row, column).
- */
 public class CourseT implements Measures {
     String name;
     HashMap<IndicatorT, HashSet<LOsT>> m;

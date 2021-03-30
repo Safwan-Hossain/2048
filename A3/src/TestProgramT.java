@@ -1,8 +1,8 @@
 /**
- * Author:
- * Revised:
- *
- * Description:
+ * Author: Safwan Hossain, hossam18, 400252391
+ * Revised: 3/29/2021
+ * 
+ * Description: Class that tests ProgramT.java
  */
 
 package src;

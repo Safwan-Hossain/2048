@@ -1,3 +1,9 @@
+/**
+ * Author: Safwan Hossain, hossam18, 400252391
+ * Revised: 3/29/2021
+ * 
+ * Description: Class for handling a set of courses of type CourseT
+ */
 package src;
 import java.util.HashSet;
 

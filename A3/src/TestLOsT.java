@@ -1,3 +1,9 @@
+/**
+ * Author: Safwan Hossain, hossam18, 400252391
+ * Revised: 3/29/2021
+ * 
+ * Description: Class that tests LOsT.java
+ */
 package src;
 public class LOsT implements Measures{
     String name;
