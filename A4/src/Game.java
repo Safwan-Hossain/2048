@@ -18,6 +18,8 @@ public class Game {
      * @brief constructor
      * @param boardSize - size of the game board
      * @param numOfRandomPerMove - the number of random numbers that is to be inserted into the board after every move
+     * @Assumption This class is only used by Controller.java, therefore proper indices
+     * will be inputted.
      */
     public Game(int boardSize, int numOfRandomPerMove) {
         this.positions = new Positions(boardSize);

@@ -23,6 +23,8 @@ public class Positions {
      * during that move, it gets added to a set that keeps track of the resulting cell of the two merging cells. After
      * the move is done the merged cells set is emptied.
      * @param boardSize - size of the game board
+     * @Assumption This class is only used by Game.java and Board.java, therefore proper indices
+     * will be inputted.
      */
     public Positions(int boardSize) {
         this.boardSize = boardSize;

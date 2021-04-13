@@ -40,6 +40,7 @@ public class Controller {
         int boardSize = tryInt(2);
         Display.askForNumberOfPushes();
         int numOfRandomPerMove = tryInt(1);
+        Display.printNewGame();
         game = new Game(boardSize, numOfRandomPerMove);
     }
 

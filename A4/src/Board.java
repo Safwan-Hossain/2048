@@ -20,7 +20,10 @@ public class Board {
     /**
      * @brief constructor
      * @param boardSize - size of the game board
-     * @param positions - positions object used for this board
+     * @param positions - positions object used for this board4
+     * @Assumption This class is only used by Game.java and Demo.java, therefore proper indices
+     * will be inputted.
+     * @throws IllegalArgumentException - the value is less than 0
      */
     public Board(int boardSize, Positions positions) {
         if (boardSize < 0) {
