@@ -68,7 +68,10 @@ methods for implementing the game 2048. At the start of the game two random numb
 % \bibliography{SmithCollectedRefs}
 
 \newpage
+\section* {Informal Design Overview}
+This design applies the MVC design pattern. The MVC components are Controller (controller module), Board (model module), and Display (view module). The MVC design pattern is specified and implemented in the following way: the module \textbf{Board} stores the state of the game board and the status of the game. A view module, \textbf{Display} can display the state of the game board and game using a text-based graphics. The controller \textbf{Controller} is responsible for handling input actions.
 
+\newpage
 \section* {Move Module}
 
 \subsection*{Module}
@@ -640,5 +643,11 @@ HashSet(E)
 
 Implemented as part of Java, as described in the
 \href{https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html} {Oracle Documentation}
+
+\newpage
+
+\section* {Critique Of The Current Implementation} {
+The program is consistent with its design, as all naming conventions and ordering of variables are consistent. For example, row and col were used as the names for the variables that represent the row and column indices for the game board and they were always called first in the respective order (row first, then col, then other variables). The design has excellent essentiality. Only necessary methods were created, and there are no methods that could’ve been replaced/used better by an existing method. The design has moderate minimality. This is because most methods focused on a single task, and no method did multiple different tasks, but some methods such as move() in Game handles multiple different tasks. This is because certain actions causes a vast array of changes, and in move() the Game module has to update multiple different variables after a move, thus some methods lack minimality. The design was also somewhat general. The game allows for different sizes of game boards and different number of random number pushes per move while still following the original rules of the game. The generality of the game is limited by the rules of the original game, but this implementation is as general as the rules allow. The design has high cohesion as all modules within each class relate to one another since they all keep track of their class objects properties. For example every method in Board either manipulates, updates or returns values belonging to the Board. The design also has moderately low coupling because no modules strongly depend on another module but all modules are required for the game to run. For example, Game, Board, and Positions mostly update variables relating to themselves, but without one another the game does not work. The interface does not allow the user to check for exceptions because the exceptions in the design must be checked from outside the design. The design was made with the mind of good information hiding (all parameters are private), but because of unit testing they were kept public. The same code should run if all state variables were private since in this implementation all values that are imported from other modules are imported through accessor methods, and any changes to outside variables were changed through mutator methods.
+}
 
 \end {document}
