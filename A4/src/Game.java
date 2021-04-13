@@ -1,155 +1,136 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+/**
+ * @file: Game.java
+ * @Author: Safwan Hossain, hossam18, 400252391
+ * @Date: 4/12/2021
+ * @Description: Updates and controls the physics and logic of the game
+ */
+
+package src;
 
 public class Game {
-    final int boardSize = 4;
-    // [row][column]
-    int[][] numbers = new int[4][4];
-    ArrayList<int[]> availablePositions = new ArrayList<>();
-    int availableSize;
-    int score = 0;
-    boolean isRunning;
+    Positions positions;
+    Board board;
+    int boardSize;
+    int numOfRandomPerMove;
+    int score;
 
-    public Game() {
-        this.isRunning = true;
-        for (int i = 0; i < this.boardSize; i++) {
-            for (int j = 0; j < this.boardSize; j++) {
-                this.addAvailablePosition(i, j);
+    /**
+     * @brief constructor
+     * @param boardSize - size of the game board
+     * @param numOfRandomPerMove - the number of random numbers that is to be inserted into the board after every move
+     */
+    public Game(int boardSize, int numOfRandomPerMove) {
+        this.positions = new Positions(boardSize);
+        this.board = new Board(boardSize, positions);
+        this.boardSize = boardSize;
+        this.numOfRandomPerMove = numOfRandomPerMove;
+        this.score = 0;
+
+        this.pushRandomNumber();
+        this.pushRandomNumber();
+    }
+
+    /**
+     * @brief slides the board towards a certain direction
+     * @details the board can only slide upwards, so before the slide function is called
+     * the board and positions are rotated so the direction is relatively facing upwards. After
+     * the sliding function is called, the board and positions get rotated back to their original
+     * orientation. For example if the player wants two move down, then the game is rotated 180 degrees,
+     * the numbers are slided upwards (which is downwards in player's POV) then the game is rotated 180 degrees again.
+     * @param direction - the direction that the player wants the board to slide
+     */
+    public void move(Move direction) {
+        int numOfRotates = 0;
+        switch (direction) {
+            case up:
+                numOfRotates = 0;
+                break;
+            case right:
+                numOfRotates = 1;
+                break;
+            case down:
+                numOfRotates = 2;
+                break;
+            case left:
+                numOfRotates = 3;
+                break;
+            default:
+                break;
+        }
+
+        this.rotateGame(numOfRotates);
+        board.slideAllUp();
+        positions.resetMergedPositions();
+        this.score = board.getScore();
+        this.rotateGame(4 - numOfRotates);
+
+        if (board.wasChangeMade()) {
+            board.resetChangeChecker();
+            for (int i = 0; i < this.numOfRandomPerMove; i++) {
+                this.pushRandomNumber();
             }
         }
-        this.availableSize = 16;
-        this.pushRandomNumber();
-        this.pushRandomNumber();
-        this.printBoard();
-    }
-
-    public void up() {
-        this.forceUp();
-        System.out.println("up");
-
-        this.printBoard();
-        this.pushRandomNumber();
-        System.out.println("after random insert");
-        this.printBoard();
-    }
-
-    public void right() {
-        this.rotate(1);
-        this.forceUp();
-        this.rotate(3);
-        System.out.println("right");
-
-        this.printBoard();
-        this.pushRandomNumber();
-        System.out.println("after random insert");
-        this.printBoard();
-    }
-
-    public void down() {
-        this.rotate(2);
-        this.forceUp();
-        this.rotate(2);
-        System.out.println("down");
-
-        this.printBoard();
-        this.pushRandomNumber();
-        System.out.println("after random insert");
-        this.printBoard();
-    }
-
-    public void left() {
-        this.rotate(3);
-        this.forceUp();
-        this.rotate(1);
-        System.out.println("left");
-
-        this.printBoard();
-        this.pushRandomNumber();
-        System.out.println("after random insert");
-        this.printBoard();
     }
 
 
-    // rotates 90 ccw
-    public void rotate(int times) {
+    /**
+     * @brief gets the current score of the game
+     * @return - the current score of the game
+     */
+    public int getScore() {
+        return board.getScore();
+    }
+    /**
+     * @brief gets the game board object. Used mainly for testing and displaying the board visually
+     * @return - the game board for the current game
+     */
+    public Board getBoard() {
+        return this.board;
+    }
+
+    /**
+     * @brief rotates the game a desired number of times
+     * @param times - the number of times the game is to be rotated
+     */
+    public void rotateGame(int times) {
+        if (times == 4) {
+            return;
+        }
+
         for (int i = 0; i < times; i++) {
-            int[][] newNumbers = new int[this.boardSize][this.boardSize];
-            for (int row = 0; row < this.boardSize; row++) {
-                for (int col = 0; col < this.boardSize; col++) {
-                    newNumbers[row][col] = this.getNumber(col, this.boardSize - 1 - row);
-                }
-            }
-            this.numbers = newNumbers;
+            board.rotate();
+            positions.rotateAvailablePositions();
         }
     }
 
-    public void forceUp() {
-        for (int row = 1; row < 4; row++) {
-            for (int col = 0; col < 4; col++) {
-                if (this.getNumber(row, col) != 0) {
-                    this.floatUp(row, col);
-                }
-            }
-        }
+    /**
+     * @brief finds out if a player can make a move or is the game over
+     * @details more details in Board.java
+     * @return True if player can make a move. Otherwise False.
+     */
+    public boolean isMovePossible() {
+        return board.isMovePossible();
     }
 
-    public void floatUp(int row, int col) {
-        int num = getNumber(row, col);
-        int prevRow = row - 1;
-
-        while(prevRow >= 0) {
-            int prevNum = getNumber(prevRow, col);
-            if (num == prevNum) {
-                this.setNumber(prevRow, col, num * 2);
-                this.setNumber(row, col, 0);
-                this.addAvailablePosition(row, col);
-                break;
-            }
-            else if (prevNum == 0) {
-                if (prevRow == 0) {
-                    this.setNumber(prevRow, col, num);
-                    this.setNumber(row, col, 0);
-                    this.removeAvailablePosition(prevRow, col);
-                    this.addAvailablePosition(row, col);
-                    break;
-                }
-                prevRow--;
-            }
-            else {
-                this.setNumber(prevRow + 1, col, num);
-                this.setNumber(row, col, 0);
-                this.removeAvailablePosition(prevRow + 1, col);
-                this.addAvailablePosition(row, col);
-                break;
-            }
-        }
-    }
-
-    public void setNumber(int row, int column, int number) {
-        this.numbers[row][column] = number;
-    }
-
-    public int getNumber(int row, int column) {
-        return this.numbers[row][column];
-    }
-
-    public boolean hasOpenPosition() {
-        for (int i = 0; i < this.boardSize; i++) {
-            for (int j = 0; j < this.boardSize; j++) {
-                if (this.getNumber(i, j) == 0) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
+    /**
+     * @brief pushes a random number (2 or 4) to an empty cell. If no cells are empty do nothing.
+     */
     public void pushRandomNumber() {
-        int[] pos = this.getRandomPosition();
-        this.numbers[pos[0]][pos[1]] = getRandomNumber();
-
+        int[] pos = positions.getRandomPosition();
+        int row = pos[0];
+        int col = pos[1];
+        if (row == -1 && col == -1) {
+            return;
+        }
+        positions.removeAvailablePosition(row, col);
+        board.setNumber(row, col, getRandomNumber());
     }
 
+    /**
+     * @brief generates a random number which is either 2 or 4
+     * @details generates a 2 or 4. The possibility of a 4 being generated is 10%.
+     * @return the generated number
+     */
     public int getRandomNumber() {
         int random = (int) (Math.random() * 10);
         if (random == 1) {
@@ -157,55 +138,4 @@ public class Game {
         }
         return 2;
     }
-
-    public void addAvailablePosition(int row, int col) {
-        this.availablePositions.add(new int[] {row, col});
-        this.availableSize++;
-    }
-
-    public void removeAvailablePosition(int row, int col) {
-        for (int i = 0; i < this.availableSize; i++) {
-            int[] position = this.availablePositions.get(i);
-            if (position[0] == row && position[1] == col) {
-                this.availablePositions.remove(i);
-                this.availableSize--;
-            }
-        }
-    }
-
-    public int[] numToPosition(int num) {
-        int row = num / this.boardSize;
-        int column = num % this.boardSize;
-        return new int[] {row, column};
-    }
-
-    public int[] getRandomPosition() {
-        while(true) {
-            int row = (int) (Math.random() * this.boardSize);
-            int column = (int) (Math.random() * this.boardSize);
-            if (this.getNumber(row, column) == 0) {
-                return new int[] {row, column};
-            }
-        }
-//        int random = (int) (Math.random() * this.availableSize);
-//        this.availableSize--;
-//        return this.availablePositions.remove(random);
-    }
-
-    public void printBoard() {
-        System.out.println("============");
-        for (int i = 0; i < 4; i++) {
-            System.out.println(Arrays.toString(this.numbers[i]));
-        }
-        System.out.println("============");
-    }
-
-    public static void main(String[] args) {
-        Game g = new Game();
-        g.up();
-        g.right();
-        g.right();
-        g.down();
-    }
-
 }
