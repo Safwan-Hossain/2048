@@ -177,7 +177,7 @@ All inputs made entered are handled by Game or Board and not by user, therefore 
 
 \noindent new Positions($\mathit{boardSize}$):
 \begin{itemize}
-\item transition: $\mathit{boardSize}, availablePositions, recentlyMerged := \mathit{boardSize}, \{\}, \{\})$
+\item transition: $\mathit{self.boardSize}, availablePositions, recentlyMerged := \mathit{boardSize}, \{\}, \{\})$
 \item output: $out := \mbox{self}$
 \item exception: none
 \end{itemize}
@@ -338,7 +338,7 @@ All inputs made entered are handled by Game or Display and not by user, therefor
 \noindent new Board($\mathit{boardSize, positions}$):
 \begin{itemize}
 \item transition: \\
-$boardSize, positions, wasChangeMade, score, numbers := \\
+$self.boardSize, self.positions, wasChangeMade, score, numbers := \\
 boardSize, positions, False, 0, \langle x : \mathbb{N}|x < boardSize : \langle 0, 0, 0, 0 \rangle \rangle$
 \item output: $out := \mbox{self}$
 \item exception: $exc := (boardSize = 0) \Rightarrow IllegalArgumentException $
@@ -517,7 +517,7 @@ All inputs made entered are handled by Controller, therefore inputs will have th
 \noindent new Game($boardSize, numOfRandomPerMove$):
 \begin{itemize}
 \item transition:
-$positions, board, boardSize, numOfRandomPerMove, score, := new Position(boardSize), new Board(boardSize, positions), boardSize, numOfRandomPerMove, score$
+$positions, board, self.boardSize, self.numOfRandomPerMove, score, := new Position(boardSize), new Board(boardSize, positions), boardSize, numOfRandomPerMove, score$
 
 pushRandomNumber()
 pushRandomNumber()
