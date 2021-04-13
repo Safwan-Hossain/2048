@@ -45,7 +45,7 @@
 
 \maketitle
 This Module Interface Specification (MIS) document contains modules, types and
-methods used to run a game of 2048.
+methods for implementing the game 2048. At the start of the game two random numbers are inserted into a square matrix, each tile of the matrix can contain a number or is empty. The random number that is inserted can be a 4 or 2. A direction (up, down, left, right) can be inputted which will slide all the tiles toward that direction. Tiles cannot go past another tile, but they can merge if both tiles are the same and neither of the tiles recently merged during the current move. When two tiles merge the tile that is in the direction of the inputted movement doubles in value while the other becomes an empty cell, the value of the newly merged cell is added onto the score. If there are no more empty cells and no more merges can occur the game is over. The goal of the game is to get the highest score. The game can be launched by running \textbf{Demo.java} in the source files.
 
 % In applying the specification, there may be cases that involve undefinedness.
 % We will interpret undefinedness following~\cite{Farmer2004}:
