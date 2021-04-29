@@ -140,7 +140,11 @@ written per day'' as a metric for programmer productivity?
   as required.}
 
 \begin{itemize}
-\item ...
+\item A proper metric system for productivity is hard to create as the measurement of productivity is usually a relative value.
+\item Using "average lines of codes written per day" is an ambiguous term.
+\item "average lines of codes written per day" can mean different amounts for different people and projects.
+\item Productivity measured using lines of code is not effective because more code does not mean more productive and neither does less code mean less productive
+\item For example if Bob has comes up with a solution for a problem using 200 lines, while Jim solves the same problem with 50 lines of code in the same time frame. We cannot measure who was more productive using amount of code because they both solved the same problem in the same amount of time.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,10 +167,11 @@ specification?
   word in bold at the beginning of each item.}
 
 \begin{itemize}
-\item \textbf{Abstract} - explanation
-\item \textbf{Unambiguous} - explanation
-\item \textbf{Validatable} - explanation
-\item \textbf{How to improve} - explanation
+\item \textbf{Abstract} - The specification is abstract because “easy to use” does not contain any specific details about the application and rather focuses on a key objective. 
+\item \textbf{Unambiguous} -  The specification is NOT unambiguous as the phrase “easy to use” is ambiguous. "Easy to use" is also hard to metricize because "easy" can have different criteria for different audiences. For example an "easy to use" application can be different for a teenager compared to a professional who wants details. 
+
+\item \textbf{Validatable} - The specification is not validatable because there is no metric system defined that measures the simplicity of the app (or how "easy to use" it is). If a criteria for a measurement is not given then the measurement cannot be validated.
+\item \textbf{How to improve} - We can start with defining the target audience and using that target audience we can define the "easiness" of the app. Instead of "easy to use" we can set an unambiguous criteria that can validate the application.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,16 +195,16 @@ by secrets hierarchy.
 \item \textbf{Is this module Hardware Hiding, Software Decision Hiding or
     Behaviour Hiding?  Why?}
 
-  - answer here
+  - The module is Software Decision Hiding because it is hiding the implementation for the application. Algorithm and Data structures are software decisions.
 
 \item \textbf{Is this a good secret?  Why?}
 
-  - answer here
+  - Because we want to be able to change the data structure and algorithm independent of each other and in this design we can't do that. If instead we have a module that hides the algorithm and another that hides the data structure we would be able to do that.
 
 \item \textbf{Does the specification for maze tracing robot require environment
     variables?  If so, which environment variables are needed?}
 
-  - answer here
+  - It requires the maze as the environment variable
 
 \end{enumerate}
 
@@ -225,16 +230,16 @@ opponent.
   timeline for achieving these milestones do you propose?  You can indicate the
   time a milestone is reached by the number of months from the project's start date.}
 
-  - answer here
+  - We can start by trying to fake the requirements with our current knowledge, and then try implmenting those requirements. After the first implementation attempt we can go back to our original requirements, modify the requirements based on discovered obstacles and then go implement the modified requirements. We can incrementally develop the software.
   
 \item \textbf{Everything in your process should be verified, including the
     verification.  How might you verify your verification?}
 
-  - answer here
+  - Mutation testing can be used for verification
   
 \item \textbf{How do you propose verifying the installability of your game?}
 
-  - answer here
+  - We can install it across different operating systems and  check if the game functions properly.
   
 \end{enumerate}
 
@@ -259,20 +264,20 @@ human opponents, or locally between a human and an Artificial Intelligence
     hours do you estimate that your team has available for verification related
     activities?  Please justify your answer.}
 
-  - answer here
+  -  We will have 400 hours in total available for verification.
+(5 people) * (4 hours per person) * (4 work weeks) * (5 days per week) = 400 hours.
   
 \item \textbf{Given the estimated hours available for verification, what verification
     techniques do you recommend for your team?  Please list the techniques,
     along with the number of hours your team will spend on each technique, and
     the reason for selecting this technique.}
 
-  - answer here
+  - We can go through a list of inputs and outputs and check if the given inputs influences the correct outputs.
   
 \item \textbf{Is the oracle problem a concern for implementing your game?  Why
     or why not?  If it is a concern, how do you recommend testing your software?}
 
-  - answer here
-    
+  - The oracle problem is a concern for the implementation of our game. There is a very large combination of moves that can be made in the game which makes verification difficult. We can use Metamorphic Testing for verification to overcome this problem. The test cases/program will have specifications that determines how an input can change the output of the game, which can be used to verify each move.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -298,14 +303,13 @@ You can assume that inputs outside of the range 1 to 1000 do not occur.
 \item What are the sets $D_i$ that partition $D$ (the input domain) into a
   reasonable set of equivalence classes?
 
-  \wss{answer here - you can answer in natural language, or using mathematical
-    notation.}
+  \wss{$D_i$ can be the set of numbers that are a multiple of 5, the set of numbers that are a multiple of 7, set of numbers that are a multiple of 5 and 7 or a set of numbers that is neither the multiple of 5 nor 7}
+    
 
 \item Given the sets $D_i$, and the heuristics discussed in class, how would you
   go about selecting test cases?
 
-  \wss{answer here - you don't need specific test cases; your answer should
-    characterize how all significant test cases are to be chosen.}
+  \wss{I would test every input domain to check if they are one of the sets as stated in the previous question. I would also make sure the input domain contains numbers within the given range (1 - 1000)}
   
 \end{enumerate}
   
@@ -368,7 +372,7 @@ $\mathit{Xturn}$: $\mathbb{B}$
 
 \subsubsection* {State Invariant}
 
-\wss{Place your state invariant or invariants here}\\
+\wss{$isMovePossible: \mathbb{B}$}\\
 
 \subsubsection* {Assumptions}
 
@@ -408,7 +412,7 @@ $exc := (\mbox{InvalidPosition}(i, j) \Rightarrow \mbox{OutOfBoundsException})$
 
 \noindent get\_turn():
 \begin{itemize}
-\item output: \wss{Return the cellT that corresponds to the current turn}\\
+\item output: \wss{($Xturn \Rightarrow X \mid True \Rightarrow O$) }\\
 
 \item exception: none
 \end{itemize}
@@ -428,7 +432,8 @@ $exc := (\mbox{InvalidPosition}(i, j) \Rightarrow \mbox{OutOfBoundsException})$
 
 \noindent is\_game\_over():
 \begin{itemize}
-\item output: \wss{Returns true if X or O wins, or if there are no more moves remaining}\\
+\item output: \wss{$\exists (c : cellT | \neg (c = FREE) : horizontal\_win(c) \vee vertical\_win(c) \vee diagonal\_win(c)) \vee 
+\neg (\exists (i, j : \mathbb{N} \mid 0 \leq i, j < SIZE: b[i, j] = FREE)$}\\
 
 \item exception: none
 \end{itemize}
@@ -447,8 +452,7 @@ InvalidPosition$(i, j) \equiv \neg ( ( 0 \leq i < \mbox{SIZE} ) \wedge ( 0 \leq 
 
 \noindent \textbf{count}: cellT $\rightarrow$ $\mathbb{N}$\\
 ~\newline
-\wss{For the current board return the number of occurrences of the cellT
-  argument}
+\wss{count(c) $ \equiv +(i, j : \mathbb{N} \mid 0 \leq i, j < SIZE \wedge getb(i, j) = c : 1)$}
 ~\newline
 
 
@@ -468,8 +472,8 @@ vertical\_win$(c, b) \equiv \exists (j : \mathbb{N} | 0 \leq j < \mbox{SIZE} : b
 
 \noindent \textbf{diagonal\_win} : cellT $\times$ boardT $\rightarrow$ $\mathbb{B}$\\
 ~\newline
-\wss{Returns true if one of the diagonals for the board has all of the entries
-  equal to cellT}
+\wss{diagonal\_win$(c, b) \equiv (b[0, 0] = b[1, 1] = b[2, 2] = c \vee  
+b[0, 2] = b[1, 1] = b[2, 0] = c) $}
 ~\newline
 
 
@@ -619,7 +623,6 @@ meanCalc($v$)
 \item output: $\mathit{out} := \frac{|x|}{+(x: \mathbb{R} | x \in v : 1/x)}$
 \item exception: none
 \end{itemize}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
