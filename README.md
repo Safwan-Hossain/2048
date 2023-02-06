@@ -15,7 +15,7 @@ A Java implementation for the game **2048** with simple customizability options.
 - '**D**' will move all tiles to the **right**
 
 ### Rules
-- Type in *W*,*A*,*S* or *D* into the console to make a move
+- Type in '**W**','**A**','**S**' or '**D**' into the console to make a move
 - Tiles with the same number will merge into one tile when touched
 - The newly merged tile's number will be double the previous tiles
 - Add them up to reach 2048!
