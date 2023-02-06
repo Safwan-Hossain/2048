@@ -1,0 +1,653 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{hyperref}
+
+\oddsidemargin -10mm
+\evensidemargin -10mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+%% Comments
+
+\usepackage{color}
+
+\newif\ifcomments\commentstrue
+
+\ifcomments
+\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\else
+\newcommand{\authornote}[3]{}
+\newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
+
+\title{Assignment 4, Part 1, Specification}
+\author{Safwan Hossain, hossam18, 400252391}
+
+\begin {document}
+
+\maketitle
+This Module Interface Specification (MIS) document contains modules, types and
+methods for implementing the game 2048. At the start of the game two random numbers are inserted into a square matrix, each tile of the matrix can contain a number or is empty. The random number that is inserted can be a 4 or 2. A direction (up, down, left, right) can be inputted which will slide all the tiles toward that direction. Tiles cannot go past another tile, but they can merge if both tiles are the same and neither of the tiles recently merged during the current move. When two tiles merge the tile that is in the direction of the inputted movement doubles in value while the other becomes an empty cell, the value of the newly merged cell is added onto the score. If there are no more empty cells and no more merges can occur the game is over. The goal of the game is to get the highest score. The game can be launched by running \textbf{Demo.java} in the source files.
+
+% In applying the specification, there may be cases that involve undefinedness.
+% We will interpret undefinedness following~\cite{Farmer2004}:
+
+% If $p: \alpha_1 \times .... \times \alpha_n \rightarrow \mathbb{B}$ and any of
+% $a_1, ..., a_n$ is undefined, then $p(a_1, ..., a_n)$ is False.  For instance,
+% if $p(x) = 1/x < 1$, then $p(0) = \text{False}$.  In the language of our
+% specification, if evaluating an expression generates an exception, then the
+% value of the expression is undefined.
+
+% \wss{The parts that you need to fill in are marked by comments, like this one.
+%   In several of the modules local functions are specified.  You can use these
+%   local functions to complete the missing specifications.}
+
+% \wss{As you edit the tex source, please leave the \texttt{wss} comments in the
+%   file.  Put your answer \textbf{after} the comment.  This will make grading
+%   easier.}
+
+% \bibliographystyle{plain}
+% \bibliography{SmithCollectedRefs}
+
+\newpage
+\section* {Informal Design Overview}
+This design applies the MVC design pattern. The MVC components are Controller (controller module), Board (model module), and Display (view module). The MVC design pattern is specified and implemented in the following way: the module \textbf{Board} stores the state of the game board and the status of the game. A view module, \textbf{Display} can display the state of the game board and game using a text-based graphics. The controller \textbf{Controller} is responsible for handling input actions.
+
+\newpage
+\section* {Move Module}
+
+\subsection*{Module}
+
+Move
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+IndicatorT = \{\\
+    up, \textit{\#Player moves up}\\
+    down, \textit{\#Player moves down}\\
+    left, \textit{\#Player moves left}\\
+    right; \textit{\#Player moves right}\\
+\}
+
+\subsubsection* {Exported Access Programs}
+
+None
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Consideration}
+
+Move is an enum class that represent the possible moves a player can make.
+
+\newpage
+
+\section* {Positions Module}
+
+\subsection*{Template Module}
+
+Positions
+
+\subsection* {Uses}
+
+none
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+Position = ?
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{|l|l|l|p{5cm}|}
+\hline
+\textbf{Routine Name}    & \textbf{In}                & \textbf{Out}        & \textbf{Exceptions} \\ \hline
+new Positions            & $\mathbb{Z}$               & Position            &                     \\ \hline
+rotateAvailablePositions &                            &                     &                     \\ \hline
+getRotatedPosition       & seq of $\mathbb{Z}$        & seq of $\mathbb{Z}$ &                     \\ \hline
+addAllAvailablePositions &                            &                     &                     \\ \hline
+positionIsAvailable      & $\mathbb{Z}$, $\mathbb{Z}$ & $\mathbb{B}$        &                     \\ \hline
+addAvailablePosition     & $\mathbb{Z}$, $\mathbb{Z}$ &                     &                     \\ \hline
+removeAvailablePosition  & $\mathbb{Z}$, $\mathbb{Z}$ &                     &                     \\ \hline
+getRandomPosition        &                            & seq of $\mathbb{Z}$ &                     \\ \hline
+hasAvailablePosition     &                            & $\mathbb{B}$        &                     \\ \hline
+merged                   & $\mathbb{Z}$, $\mathbb{Z}$ &                     &                     \\ \hline
+resetMergedPositions     &                            &                     &                     \\ \hline
+wasRecentlyMerged        & $\mathbb{Z}$, $\mathbb{Z}$ & $\mathbb{B}$        &                     \\ \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$boardSize: \mathbb{Z}$\\
+$availablePositions: \text{set of sequences of } \mathbb{Z}$ \\
+$recentlyMerged: \text{set of sequences of } \mathbb{Z}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+All inputs made entered are handled by Game or Board and not by user, therefore inputs will have the proper indexes.
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent new Positions($\mathit{boardSize}$):
+\begin{itemize}
+\item transition: $\mathit{self.boardSize}, availablePositions, recentlyMerged := \mathit{boardSize}, \{\}, \{\})$
+\item output: $out := \mbox{self}$
+\item exception: none
+\end{itemize}
+
+\noindent rotateAvailablePositions():
+\begin{itemize}
+\item transition: \\
+    $availablePositions := \{i: \text{seq of } \mathbb{Z} | i \in availablePositions :
+    getRotatedPosition(i)\}$
+\item output: $out := \text{none}$
+\item exception: none
+\end{itemize}
+
+\noindent getRotatedPosition($position$):
+\begin{itemize}
+
+\item output: $out := \langle boardSize - 1 - position[1], position[0] \rangle$
+\item exception: none
+\end{itemize}
+
+\noindent addAllAvailablePositions():
+\begin{itemize}
+\item transition: \\
+    $\forall (x, y: \mathbb{N}| x, y < boardSize: addAvailablePosition(x, y))$
+\item output: none
+\item exception: none
+\end{itemize}
+
+\noindent positionIsAvailable($row, col$):
+\begin{itemize}
+
+\item output: $out := \exists(s:\text{seq of } \mathbb{Z} | s \in availablePositions : s[0] = row \wedge s[1] = col))$
+\item exception: none
+\end{itemize}
+
+\noindent addAvailablePosition($row, col$):
+\begin{itemize}
+\item transition: \\
+    $availablePositions$ := $\{ \neg (positionIsAvailable(row, col)) \Rightarrow 
+    availablePositions \cup \langle row, col \rangle\ | True \Rightarrow availablePositions\}$
+\item output: none
+\item exception: none
+\end{itemize}
+
+
+\noindent removeAvailablePosition($row, col$):
+\begin{itemize}
+\item transition: \\
+    $availablePositions := \exists(s:\text{seq of } \mathbb{Z} | s \in availablePositions : s[0] = row \wedge s[1] = col) \Rightarrow 
+    availablePositions - s | True \Rightarrow availablePositions\}$
+\item output: none
+\item exception: none
+\end{itemize}
+
+\noindent getRandomPosition():
+\begin{itemize}
+\item output: $out := |availablePositions| = 0 \Rightarrow \langle -1, -1 \rangle | True \Rightarrow \\
+availablePositions[ \hspace{2px} \space \lfloor(random() ^* |availablePositions| \hspace{2px} ]$
+\item exception: none
+\end{itemize}
+
+\noindent hasAvailablePosition():
+\begin{itemize}
+\item output: $out := \neg (|availablePositions| = 0)$
+\item exception: none
+\end{itemize}
+
+
+\noindent merged($row, col$):
+\begin{itemize}
+\item transition: \\
+    $recentlyMerged := recentlyMerged \cup \{\langle row, col \rangle\}$
+\item output: none
+\item exception: none
+\end{itemize}
+
+
+\noindent resetMergedPositions():
+\begin{itemize}
+\item transition: \\
+    $recentlyMerged := \{\}$
+\item output: none
+\item exception: none
+\end{itemize}
+
+
+\noindent wasRecentlyMerged($row, col$):
+\begin{itemize}
+\item output: \\
+    $out := \exists(s:\text{seq of } \mathbb{Z} | s \in recentlyMerged : s[0] = row \wedge s[1] = col))$
+\item exception: none
+\end{itemize}
+
+\newpage
+
+
+\section* {Board Module}
+
+\subsection*{Template Module}
+
+Board
+
+\subsection* {Uses}
+
+Position
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+Board = ? 
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Routine Name}   & \textbf{In}                             & \textbf{Out}        & \textbf{Exceptions}      \\ \hline
+new Board               & $\mathbb{Z}$, Position                  & Board               & IllegalArgumentException \\ \hline
+getNumber               & $\mathbb{Z}$, $\mathbb{Z}$              & $\mathbb{Z}$        &                          \\ \hline
+getBoardSize            &                                         & $\mathbb{N}$        &                          \\ \hline
+getScore                &                                         & $\mathbb{N}$        &                          \\ \hline
+getRow                  & $\mathbb{Z}$                            & seq of $\mathbb{Z}$ &                          \\ \hline
+wasChangeMade           &                                         & $\mathbb{B}$        &                          \\ \hline
+setNumber               & $\mathbb{Z}$, $\mathbb{Z}$, $\mathbb{Z}$ &                     &                          \\ \hline
+resetChangeChecker      &                                         &                     &                          \\ \hline
+getLargestCurrentNumber &                                         & $\mathbb{B}$        &                          \\ \hline
+isMovePossible          &                                         & $\mathbb{B}$        &                          \\ \hline
+canMove                 & $\mathbb{Z}$, $\mathbb{Z}$              & $\mathbb{B}$        &                          \\ \hline
+rotate                  &                                         &                     &                          \\ \hline
+slideUp                 & $\mathbb{Z}$, $\mathbb{Z}$              &                     &                          \\ \hline
+slideAllUp              &                                         &                     &                          \\ \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$boardSize: \mathbb{Z}$\\
+$positions: \text{Positions}$ \\
+$wasChangeMade: \mathbb{B}$ \\
+$numbers: \text{a sequence of sequences of }\mathbb{Z}$ \\
+$score: \mathbb{N}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+All inputs made entered are handled by Game or Display and not by user, therefore inputs will have the proper indexes.
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent new Board($\mathit{boardSize, positions}$):
+\begin{itemize}
+\item transition: \\
+$self.boardSize, self.positions, wasChangeMade, score, numbers := \\
+boardSize, positions, False, 0, \langle x : \mathbb{N}|x < boardSize : \langle 0, 0, 0, 0 \rangle \rangle$
+\item output: $out := \mbox{self}$
+\item exception: $exc := (boardSize = 0) \Rightarrow IllegalArgumentException $
+\end{itemize}    
+
+
+\noindent getNumber($row, col$):
+\begin{itemize}
+\item output: $out := numbers[row][col]$
+\item exception: none
+\end{itemize}   
+
+\noindent getBoardSize():
+\begin{itemize}
+\item output: $out := boardSize$
+\item exception: none
+\end{itemize}   
+
+\noindent getScore():
+\begin{itemize}
+\item output: $out := score$
+\item exception: none
+\end{itemize}   
+
+\noindent getRow($row$):
+\begin{itemize}
+\item output: $out := numbers[row]$
+\item exception: none
+\end{itemize}  
+
+\noindent wasChangeMade():
+\begin{itemize}
+\item output: $out := wasChangeMade$
+\item exception: none
+\end{itemize}  
+
+\noindent setNumber($row, col, number$):
+\begin{itemize}
+\item transition: \\
+$numbers[row][col] := number$
+\item output: none
+\item exception: none
+\end{itemize}  
+
+\noindent resetChangeChecker():
+\begin{itemize}
+\item transition: \\
+$wasChangeMade := False$
+\item output: none
+\item exception: none
+\end{itemize}  
+
+\noindent getLargestCurrentNumber():
+\begin{itemize}
+\item output: $out := \text{Max}(numbers)$
+\item exception: none
+\end{itemize}  
+
+\noindent isMovePossible():
+\begin{itemize}
+\item output: $out := positions.hasAvailablePosition() \vee \exists (x, y : \mathbb{N} | x, y < boardSize : canMove(x, y))$
+\item exception: none
+\end{itemize} 
+
+\noindent canMove($row, col$):
+\begin{itemize}
+\item output: $out := \exists (x, y : \mathbb{Z} | \neg (row - x = 0 \wedge col - y = 0) \wedge (row - x = 0 \vee col - y = 0) \wedge (|row - x| = 1 \vee |col - y| = 1) : numbers[x][y] = numbers[row][col])$
+\item exception: none
+\end{itemize} 
+
+\noindent rotate():
+\begin{itemize}
+\item transition: 
+$numbers := \\ \langle
+\forall (x : \mathbb{N} | x < boardSize :  \langle
+\forall (y : \mathbb{N} | y < boardSize : 
+numbers[y][boardSize - 1 - x] \rangle \rangle  $
+\item output: none
+\item exception: none
+\end{itemize} 
+
+\noindent slideUp($row, col$): \\
+\textbf{Description:} If the number above was merged during this move then stop the function. If the number above is the same as the current number then, the number above will double and the current number will be turned to a 0. If the number above is a 0 then it will slide the number up by one square and call the slideUp() function recursively for the number located above. 
+\begin{itemize}
+\item transition: \\
+for easier readability let the following be boolean statements: \\
+$A = row \le 0 \vee positions.wasRecentlyMerged(row - 1, co)l$ \\
+$B = numbers[row][col] = numbers[row - 1][col]l$ \\
+$C = numbers[row - 1][col] = 0l$ \\
+\\
+number[row - 1][col], number[row][col], score, wasChangeMade := \\ 
+$(A \Rightarrow number[row - 1][col], number[row][col], score, wasChangeMade) | \\
+(B \Rightarrow numbers[row][col], 0, score + number[row][col] ^* 2, True) | \\
+(C \Rightarrow  numbers[row][col], 0, score, True) | \\
+(True \Rightarrow number[row - 1][col], number[row][col])$ \\
+\\
+The bottom transitions could have been added with the ones on top, but for easier readability they are sepearted. Assume that at each condition first the top instructions are called then the bottom.
+
+$(A \Rightarrow ) | \\
+(B \Rightarrow positions.Merged(row - 1, col), positions.addAvailablePosition(row, col) | \\
+(C \Rightarrow  positions.removeAvailablePosition(row - 1, col), positions.addAvailablePosition(row, col), slideUp(row - 1, col) $
+
+\item output: none
+\item exception: none
+\end{itemize} 
+
+\noindent slideAllUp():
+\begin{itemize}
+\item transition: \\
+$\forall (x : \mathbb{N} | 1 \le x < boardSize : \forall (y : \mathbb{N} | y < boardSize : \neg (numbers[x, y] = 0) \Rightarrow slideUp(x, y)) $
+\item output: none
+\item exception: none
+\end{itemize} 
+\subsubsection* {Consideration}
+
+This module is used to get and manipulate values on the board. The numerical values for the board is stored in a square matrix of length boardSize. 
+
+\newpage
+
+\section* {Game Module}
+
+\subsection*{Template Module}
+
+Game
+
+\subsection* {Uses}
+
+Board, Positions
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Routine Name} & \textbf{In}               & \textbf{Out} & \textbf{Exceptions} \\ \hline
+new Game              & $\mathbb{Z}$, $\mathbb{Z}$ & Game         &                     \\ \hline
+move                  & Move                      &              &                     \\ \hline
+getScore              &                           & $\mathbb{N}$ &                     \\ \hline
+getBoard              &                           & Board        &                     \\ \hline
+rotateGame            & $\mathbb{Z}$              &              &                     \\ \hline
+isMovePossible        &                           & $\mathbb{B}$ &                     \\ \hline
+pushRandomNumber      &                           &              &                     \\ \hline
+resetChangeChecker    &                           &              &                     \\ \hline
+getRandomNumber       &                           & $\mathbb{N}$ &                     \\ \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$positions$ : Positions
+$board$ : Board
+$boardSize$ : $\mathbb{Z}$
+$numOfRandomPerMove$ : $\mathbb{Z}$
+$score$ : $\mathbb{N}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+All inputs made entered are handled by Controller, therefore inputs will have the proper indexes.
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent new Game($boardSize, numOfRandomPerMove$):
+\begin{itemize}
+\item transition:
+$positions, board, self.boardSize, self.numOfRandomPerMove, score, := new Position(boardSize), new Board(boardSize, positions), boardSize, numOfRandomPerMove, score$
+
+pushRandomNumber()
+pushRandomNumber()
+\item output: none
+\item exception: none
+\end{itemize}
+
+\noindent move($direction$):
+\begin{itemize}
+\item transition:
+if direction is Move.up do not rotate. If the direction is Move.right rotate once now. If the direction is Move.down, rotate twice, if the direction is move.left rotate three times. After rotating slide the board up, reset any merged markers, update the new score, then rotate the game back to its original orientation.
+\item output: none
+\item exception: none
+\end{itemize}
+
+\newpage
+
+\section* {Display}
+
+\subsection*{Template Module}
+
+Display
+
+\subsection* {Uses}
+
+Board
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{|l|p{2cm}|p{2cm}|p{5cm}|}
+\hline
+\textbf{Routine Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\ \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+\subsubsection* {Access Routine Semantics}
+
+
+
+\newpage
+
+\section* {Controller}
+
+\subsection*{Module}
+
+Controller
+
+\subsection* {Uses}
+
+Display, Game, Board
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{|l|l|l|p{5cm}|}
+\hline
+\textbf{Routine Name} & \textbf{In}  & \textbf{Out} & \textbf{Exceptions}   \\ \hline
+tryInt                & $\mathbb{Z}$ & $\mathbb{Z}$ & NumberFormatException \\ \hline
+start                 &              &              &                       \\ \hline
+newGame               &              &              &                       \\ \hline
+gameOver              &              &              &                       \\ \hline
+runGame               &              &              &                       \\ \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Access Routine Semantics}
+
+
+\newpage
+
+\section* {HashSet Module}
+
+\subsection* {Generic Template Module inherits Set(E)}
+
+HashSet(E)
+
+\subsection* {Considerations}
+
+Implemented as part of Java, as described in the
+\href{https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html} {Oracle Documentation}
+
+\newpage
+
+\section* {Critique Of The Current Implementation} {
+The program is consistent with its design, as all naming conventions and ordering of variables are consistent. For example, row and col were used as the names for the variables that represent the row and column indices for the game board and they were always called first in the respective order (row first, then col, then other variables). The design has excellent essentiality. Only necessary methods were created, and there are no methods that could’ve been replaced/used better by an existing method. The design has moderate minimality. This is because most methods focused on a single task, and no method did multiple different tasks, but some methods such as move() in Game handles multiple different tasks. This is because certain actions causes a vast array of changes, and in move() the Game module has to update multiple different variables after a move, thus some methods lack minimality. The design was also somewhat general. The game allows for different sizes of game boards and different number of random number pushes per move while still following the original rules of the game. The generality of the game is limited by the rules of the original game, but this implementation is as general as the rules allow. The design has high cohesion as all modules within each class relate to one another since they all keep track of their class objects properties. For example every method in Board either manipulates, updates or returns values belonging to the Board. The design also has moderately low coupling because no modules strongly depend on another module but all modules are required for the game to run. For example, Game, Board, and Positions mostly update variables relating to themselves, but without one another the game does not work. The interface does not allow the user to check for exceptions because the exceptions in the design must be checked from outside the design. The design was made with the mind of good information hiding (all parameters are private), but because of unit testing they were kept public. The same code should run if all state variables were private since in this implementation all values that are imported from other modules are imported through accessor methods, and any changes to outside variables were changed through mutator methods.
+}
+
+\end {document}
