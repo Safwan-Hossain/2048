@@ -7,7 +7,7 @@
 
 import controller.Controller;
 
-public class Demo {
+public class Runner {
     public static void main(String[] args) {
         Controller.start();
     }

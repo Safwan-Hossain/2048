@@ -7,15 +7,13 @@
 
 package model;
 
-//import java.util.Arrays;
-
 public class Board {
     // [row][column]
-    int[][] numbers;
-    int boardSize;
-    int score;
-    boolean wasChangeMade;
-    Positions positions;
+    private int[][] numbersOnBoard;
+    private final int boardSize;
+    private int score;
+    private boolean wasChangeMade;
+    private Positions positions;
 
     /**
      * @brief constructor
@@ -32,7 +30,7 @@ public class Board {
         this.boardSize = boardSize;
         this.positions = positions;
         this.wasChangeMade = false;
-        this.numbers = new int[boardSize][boardSize];
+        this.numbersOnBoard = new int[boardSize][boardSize];
         this.score = 0;
     }
 
@@ -40,9 +38,8 @@ public class Board {
      * @brief sets the board and resets some state variables. Used exclusively for testing.
      * @param newNumbers - the board matrix that overwrites the current one
      */
-    //for testing
     public void setBoard(int[][] newNumbers) {
-        this.numbers = newNumbers;
+        this.numbersOnBoard = newNumbers;
         this.score = 0;
         this.wasChangeMade = false;
         this.positions = new Positions(this.boardSize);
@@ -54,8 +51,8 @@ public class Board {
      * @param col - the column index of the wanted cell
      * @return Number located at the desired cell
      */
-    public int getNumber(int row, int col) {
-        return this.numbers[row][col];
+    public int getNumberAt(int row, int col) {
+        return this.numbersOnBoard[row][col];
     }
 
     /**
@@ -80,7 +77,7 @@ public class Board {
      * @return array located at the row index
      */
     public int[] getRow(int row) {
-        return this.numbers[row];
+        return this.numbersOnBoard[row];
     }
 
     /**
@@ -101,7 +98,7 @@ public class Board {
      * @param col - the column index the cell that is to be changed
      */
     public void setNumber(int row, int col, int number) {
-        this.numbers[row][col] = number;
+        this.numbersOnBoard[row][col] = number;
     }
 
     /**
@@ -119,8 +116,8 @@ public class Board {
         int largest = 2;
         for (int row = 0; row < this.boardSize; row++) {
             for (int col = 0; col < this.boardSize; col++) {
-                if (this.getNumber(row, col) > largest) {
-                    largest = this.getNumber(row, col);
+                if (this.getNumberAt(row, col) > largest) {
+                    largest = this.getNumberAt(row, col);
                 }
             }
         }
@@ -140,7 +137,7 @@ public class Board {
 
         for (int row = 0; row < this.boardSize; row++) {
             for (int col = 0; col < this.boardSize; col++) {
-                if (this.canMove(row, col)) {
+                if (canMove(row, col)) {
                     return true;
                 }
             }
@@ -152,19 +149,19 @@ public class Board {
      * @brief checks if a given cell can move to a neighbouring cell
      * @details a neighbouring cell is defined by a cell that is either 1 up, 1 right, 1 left
      * or 1 down from the current cell. If the current cell has a neighbouring cell such that both
-     * cells contain the same value, then a move is possible, in this case return True. Otherwise False.
+     * cells contain the same value, then a move is possible, in this case return True. Otherwise, False.
      * @param row - the row index the cell that is to be checked
      * @param col - the column index the cell that is to be checked
      * @return True if a move is possible, False otherwise.
      */
     public boolean canMove(int row, int col) {
-        int currNum = this.getNumber(row, col);
+        int currNum = getNumberAt(row, col);
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (row - i >= 0 && row - i < this.boardSize &&
                         col - j >= 0 && col - j < this.boardSize) {
 
-                    int neighbourNum = this.getNumber(row - i, col - j);
+                    int neighbourNum = getNumberAt(row - i, col - j);
                     if (currNum == neighbourNum && !(i == 0 && j == 0) && (i == 0 || j == 0)) {
                         return true;
                     }
@@ -186,10 +183,10 @@ public class Board {
 
         for (int row = 0; row < this.boardSize; row++) {
             for (int col = 0; col < this.boardSize; col++) {
-                newNumbers[row][col] = this.getNumber(col, this.boardSize - 1 - row);
+                newNumbers[row][col] = getNumberAt(col, this.boardSize - 1 - row);
             }
         }
-        this.numbers = newNumbers;
+        this.numbersOnBoard = newNumbers;
     }
 
     /**
@@ -209,12 +206,12 @@ public class Board {
             return;
         }
 
-        int currNum = this.getNumber(row, col);
-        int numAbove = this.getNumber(rowAbove, col);
+        int currNum = getNumberAt(row, col);
+        int numAbove = getNumberAt(rowAbove, col);
 
         if (currNum == numAbove) {
-            this.setNumber(rowAbove, col, currNum * 2);
-            this.setNumber(row, col, 0);
+            setNumber(rowAbove, col, currNum * 2);
+            setNumber(row, col, 0);
             this.score += currNum * 2;
             this.wasChangeMade = true;
             positions.merged(rowAbove, col);
@@ -222,8 +219,8 @@ public class Board {
             return;
         }
         if (numAbove == 0) {
-            this.setNumber(rowAbove, col, currNum);
-            this.setNumber(row, col, 0);
+            setNumber(rowAbove, col, currNum);
+            setNumber(row, col, 0);
             this.wasChangeMade = true;
             positions.removeAvailablePosition(rowAbove, col);
             positions.addAvailablePosition(row, col);
@@ -231,15 +228,15 @@ public class Board {
         }
     }
     /**
-     * @brief calls slideUp() for all cells except the top row in the board.
+     * @brief Calls slideUp() for all cells except the top row in the board.
      * @details the top row does not need to have slideUp() called because the number the top cannot go higher
      * and any numbers below it that can merge will be merged when their cell is called.
      */
     public void slideAllUp() {
         for (int row = 1; row < this.boardSize; row++) {
             for (int col = 0; col < this.boardSize; col++) {
-                if (this.getNumber(row, col) != 0) {
-                    this.slideUp(row, col);
+                if (getNumberAt(row, col) != 0) {
+                    slideUp(row, col);
                 }
             }
         }

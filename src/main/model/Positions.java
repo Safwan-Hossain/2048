@@ -7,14 +7,13 @@
 
 package model;
 
-//import java.util.Arrays;
 import java.util.HashSet;
 
 
 public class Positions {
-    int boardSize;
-    HashSet<int[]> availablePositions;
-    HashSet<int[]> recentlyMerged;
+    private final int boardSize;
+    private HashSet<int[]> availablePositions;
+    private HashSet<int[]> recentlyMerged;
 
     /**
      * @brief constructor
@@ -34,7 +33,7 @@ public class Positions {
     }
 
     /**
-     * @brief rotates all the locations for all current empty cells by 90 degrees ccw.
+     * @brief rotates all the locations for all current empty cells by 90 degrees counter clock wise.
      * @details When a player makes a move, the board is rotated so that the direction always goes upwards,
      * and then the board gets rotated back. During the rotation the program needs to access the empty cell locations,
      * thus the empty cell locations are rotated to keep the position matching the board.
@@ -42,7 +41,7 @@ public class Positions {
 
     public void rotateAvailablePositions() {
         HashSet<int[]> rotatedPositions = new HashSet<>();
-        for (int[] position: this.availablePositions) {
+        for (int[] position: availablePositions) {
             rotatedPositions.add(this.getRotatedPosition(position));
         }
         this.availablePositions = rotatedPositions;
@@ -109,10 +108,10 @@ public class Positions {
 
     /**
      * @brief gets a random empty cell in the game.
-     * @details calculates a random index between 0 and one less than the size of the number of empty cells.
+     * @details calculates a random index between 0 and 1 less than the size of the number of empty cells.
      * then the method returns the empty cell located at the index. If no empty cells exist, the method returns
      * a position of [-1, -1] to indicate there are no cells left.
-     * @return a random empty cell in the board if available. Otherwise returns an out of bound location.
+     * @return a random empty cell in the board if available. Otherwise, returns an out of bound location.
      */
     public int[] getRandomPosition() {
         int randomIndex = (int) (Math.random() * this.availablePositions.size());
@@ -170,7 +169,12 @@ public class Positions {
         return false;
     }
 
-//    public void printBoard() {
+    public HashSet<int[]> getAvailablePositions() {
+        return availablePositions;
+    }
+
+
+    //    public void printBoard() {
 //        int[][] positions = new int[this.boardSize][this.boardSize];
 //        for (int[] pos: this.availablePositions) {
 //            positions[pos[0]][pos[1]] = 1;

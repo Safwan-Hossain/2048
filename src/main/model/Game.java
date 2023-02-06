@@ -10,11 +10,10 @@ package model;
 import enumeration.Move;
 
 public class Game {
-    Positions positions;
-    Board board;
-    int boardSize;
-    int numOfRandomPerMove;
-    int score;
+    private final int numOfRandomPerMove;
+    private Positions positions;
+    private Board board;
+    private int score;
 
     /**
      * @brief constructor
@@ -26,12 +25,11 @@ public class Game {
     public Game(int boardSize, int numOfRandomPerMove) {
         this.positions = new Positions(boardSize);
         this.board = new Board(boardSize, positions);
-        this.boardSize = boardSize;
         this.numOfRandomPerMove = numOfRandomPerMove;
         this.score = 0;
 
-        this.pushRandomNumber();
-        this.pushRandomNumber();
+        pushRandomNumber();
+        pushRandomNumber();
     }
 
     /**
@@ -46,32 +44,23 @@ public class Game {
     public void move(Move direction) {
         int numOfRotates = 0;
         switch (direction) {
-            case up:
-                numOfRotates = 0;
-                break;
-            case right:
-                numOfRotates = 1;
-                break;
-            case down:
-                numOfRotates = 2;
-                break;
-            case left:
-                numOfRotates = 3;
-                break;
-            default:
-                break;
+            case up -> numOfRotates = 0;
+            case right -> numOfRotates = 1;
+            case down -> numOfRotates = 2;
+            case left -> numOfRotates = 3;
+            default -> {}
         }
 
-        this.rotateGame(numOfRotates);
+        rotateGame(numOfRotates);
         board.slideAllUp();
         positions.resetMergedPositions();
         this.score = board.getScore();
-        this.rotateGame(4 - numOfRotates);
+        rotateGame(4 - numOfRotates);
 
         if (board.wasChangeMade()) {
             board.resetChangeChecker();
             for (int i = 0; i < this.numOfRandomPerMove; i++) {
-                this.pushRandomNumber();
+                pushRandomNumber();
             }
         }
     }
@@ -93,9 +82,17 @@ public class Game {
     }
 
     /**
+     * @brief gets the game Positions object. Used mainly for testing and displaying the board visually
+     * @return - the game board for the current game
+     */
+    public Positions getPositions() {
+        return this.positions;
+    }
+    /**
      * @brief rotates the game a desired number of times
      * @param times - the number of times the game is to be rotated
      */
+    // TODO - throw error if times is > 4 or < 0
     public void rotateGame(int times) {
         if (times == 4) {
             return;
@@ -142,4 +139,5 @@ public class Game {
         }
         return 2;
     }
+
 }

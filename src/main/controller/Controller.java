@@ -42,8 +42,10 @@ public class Controller {
     public static void newGame() {
         Display.askForBoardSize();
         int boardSize = tryInt(2);
+
         Display.askForNumberOfPushes();
         int numOfRandomPerMove = tryInt(1);
+
         Display.printNewGame();
         game = new Game(boardSize, numOfRandomPerMove);
     }
@@ -71,27 +73,21 @@ public class Controller {
     public static void runGame() {
         Display.printGameBoard(game.getBoard());
         while (game.isMovePossible()) {
-            String move = scanner.next().toLowerCase();
-            Move direction = Move.up;
-            switch(move) {
-                case "w":
-                    direction = Move.up;
-                    break;
-                case "s":
-                    direction = Move.down;
-                    break;
-                case "d":
-                    direction = Move.right;
-                    break;
-                case "a":
-                    direction = Move.left;
-                    break;
-                default:
-                    break;
-            }
-            game.move(direction);
+            Move directionInput = takeDirectionInput();
+            game.move(directionInput);
             Display.printGameBoard(game.getBoard());
         }
         gameOver();
+    }
+
+    private static Move takeDirectionInput() {
+        String move = scanner.next().toLowerCase();
+        return switch (move) {
+            case "w" -> Move.up;
+            case "s" -> Move.down;
+            case "d" -> Move.right;
+            case "a" -> Move.left;
+            default -> Move.up;
+        };
     }
 }
