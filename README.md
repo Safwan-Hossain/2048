@@ -9,10 +9,10 @@ A Java implementation for the game **2048** with simple customizability options.
 3. The game will start
 
 ### Input
-- '**W**' will move all tiles up
-- '**A**'  will move all tiles to the left
-- '**S**' will move all tiles down
-- '**D**' will move all tiles to the right
+- '**W**' will move all tiles **up**
+- '**A**'  will move all tiles to the **left**
+- '**S**' will move all tiles **down**
+- '**D**' will move all tiles to the **right**
 
 ### Rules
 - Type in *W*,*A*,*S* or *D* into the console to make a move
